@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <div th:insert="fragments/bootstrap :: bootstrap"></div>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="p-5 text-center">Login</div>
+<div class="text-danger mb-4 d-flex justify-content-center" th:if="${param.error}">
+    Invalid username or password.
+</div>
+<div class="text-success mb-4 d-flex justify-content-center" th:if="${param.logout}">
+    You have been logged out.
+</div>
+
+<form th:action="@{/login}" method="post">
+    <div class="d-flex flex-column">
+        <div class="input-group input-group-sm mb-4 d-flex justify-content-center">
+            <span class="input-group-text" id="inputGroup-sizing-sm1">Username</span>
+            <input name="username" type="text" class="form-control" style='max-width: 15%'
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm1" autofocus>
+        </div>
+        <div class="input-group input-group-sm mb-4 d-flex justify-content-center">
+            <span class="input-group-text" id="inputGroup-sizing-sm2">Password</span>
+            <input name="password" type="password" class="form-control" style='max-width: 15%'
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm2">
+        </div>
+        <div class="text-center p-3">
+            <button type="submit" class="btn btn-outline-success" style="width: 10%">Sign in</button>
+        </div>
+        <div class="text-center p-3">
+            <a href="/registration">Registration</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

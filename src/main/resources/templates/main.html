@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>index page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div th:insert="fragments/bootstrap :: bootstrap"></div>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="p-5 text-center">Products</div>
+<div class=" mt-4 d-flex justify-content-center align-items-center">
+    <table class="table table-hover" style="width:50%">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">Picture</th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <div th:each="entry : ${priceProductMap}">
+            <div>
+                <tbody>
+                <tr>
+                    <th><img th:src="@{uploads/{filename}(filename=${entry.key.filename})}"
+                             style="max-height: 15%; max-width: 15%"></th>
+                    <th><span th:text="${entry.key.typeOfProducts}"></span></th>
+                    <th><span th:text="${entry.key.name}"></span></th>
+                    <th><span th:text="${entry.key.description}"></span></th>
+                    <th><span th:text="${entry.value}"></span></th>
+                    <th><a th:href="@{/product/{productId}(productId=${entry.key.id})}">Edit</a></th>
+                </tr>
+                </tbody>
+            </div>
+        </div>
+    </table>
+</div>
+</body>
+</html>
