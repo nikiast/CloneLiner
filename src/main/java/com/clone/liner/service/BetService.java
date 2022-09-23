@@ -42,23 +42,12 @@ public class BetService {
     }
 
     public Map<Product, Integer> getProductPriceMap() {
-        List<Bet> betList = betRepository.findAll();
         Map<Product, Integer> priceProductMap = new HashMap<>();
-        Product productFromBetList;
-        for (Bet bet : betList) {
-            productFromBetList = bet.getProductId();
-
-            if (!priceProductMap.containsKey(productFromBetList)) {
-                priceProductMap.put(productFromBetList, bet.getPrice());
-            } else {
-                Integer currentPrice = priceProductMap.get(productFromBetList);
-                if (currentPrice > bet.getPrice()) {
-                    priceProductMap.put(bet.getProductId(), bet.getPrice());
-                }
-            }
-        }
+        betRepository.findAll().forEach(bet ->
+            priceProductMap.merge(bet.getProductId(), bet.getPrice(), (oldVal, newVal) -> {
+                if (!priceProductMap.containsKey(bet.getProductId())) return newVal;
+                else return oldVal > newVal ? newVal : oldVal;
+            }));
         return priceProductMap;
     }
-
-
 }
