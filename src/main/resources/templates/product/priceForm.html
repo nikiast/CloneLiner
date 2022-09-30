@@ -11,7 +11,7 @@
     <span th:text="${product.name}"></span>
 </div>
 
-<form th:action="@{{productId}/newPrice(productId=${product.id})}" method="post">
+<form th:action="@{{productId}/price(productId=${product.id})}" method="post">
     <div class="d-flex flex-column">
         <div class="input-group input-group-sm p-5 d-flex justify-content-center">
             <input name="price" type="number" placeholder="your price" class="form-control"
@@ -35,7 +35,7 @@
             <div>
                 <tbody>
                 <tr>
-                    <th><span th:text="${bet.userId.username}"></span></th>
+                    <th><span th:text="${bet.user.username}"></span></th>
                     <th><span th:text="${bet.price}"></span></th>
                     <th><span th:text="${bet.createdTime}"></span></th>
                 </tr>

@@ -12,6 +12,8 @@ import java.util.UUID;
 @Service
 public class ImageService {
 
+    private static final String DEFAULT_PHOTO = "noPhoto.jpg";
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -34,7 +36,7 @@ public class ImageService {
                 return false;
             }
         } else {
-            product.setFilename("noPhoto.jpg");
+            product.setFilename(DEFAULT_PHOTO);
             return false;
         }
     }

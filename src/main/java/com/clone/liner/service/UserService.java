@@ -37,25 +37,26 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> findAllUser() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public User selectRole(User user, String role) {
+    public void selectRole(User user, String role) {
         switch (role) {
             case "PROVIDER" -> user.setRole(Role.PROVIDER);
             case "ADMIN" -> user.setRole(Role.ADMIN);
             default -> user.setRole(Role.USER);
         }
-        return user;
     }
 
     public void encodePassword(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 
-    public List<User> getUsers(String username) {
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.map(List::of).orElseGet(userRepository::findAll);
+    public List<User> getOneOrAll(String username) {
+        return userRepository
+                .findByUsername(username)
+                .map(List::of)
+                .orElseGet(userRepository::findAll);
     }
 }

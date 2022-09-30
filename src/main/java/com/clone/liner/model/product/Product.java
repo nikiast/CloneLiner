@@ -1,12 +1,11 @@
 package com.clone.liner.model.product;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Product implements Serializable {
+public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,8 +16,8 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypeOfProduct typeOfProducts;
 
-    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Bet> prices;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bet> bets;
 
     private String filename;
 
@@ -62,12 +61,12 @@ public class Product implements Serializable {
         this.typeOfProducts = typeOfProducts;
     }
 
-    public List<Bet> getPrices() {
-        return prices;
+    public List<Bet> getBets() {
+        return bets;
     }
 
-    public void setPrices(List<Bet> prices) {
-        this.prices = prices;
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
     }
 
     public String getCreatedTime() {
@@ -96,13 +95,13 @@ public class Product implements Serializable {
                 && Objects.equals(getDescription(), product.getDescription())
                 && Objects.equals(getCreatedTime(), product.getCreatedTime())
                 && getTypeOfProducts() == product.getTypeOfProducts()
-                && Objects.equals(getPrices(), product.getPrices())
+                && Objects.equals(getBets(), product.getBets())
                 && Objects.equals(getFilename(), product.getFilename());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getCreatedTime(), getTypeOfProducts(), getPrices(), getFilename());
+        return Objects.hash(getId(), getName(), getDescription(), getCreatedTime(), getTypeOfProducts(), getBets(), getFilename());
     }
 
     @Override
@@ -113,7 +112,7 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", createdTime='" + createdTime + '\'' +
                 ", typeOfProducts=" + typeOfProducts +
-                ", prices=" + prices +
+                ", prices=" + bets +
                 ", filename='" + filename + '\'' +
                 '}';
     }

@@ -5,7 +5,6 @@ import com.clone.liner.model.product.TypeOfProduct;
 import com.clone.liner.repository.ProductRepository;
 import com.clone.liner.util.UserUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -18,23 +17,20 @@ public class ProductService {
         this.imageService = imageService;
     }
 
-    @Transactional
-    public void productSave(Product product) {
+    public void product(Product product) {
         productRepository.save(product);
     }
 
-
-    public void selectProductRole(Product product, String role) {
+    public void create(Product product, String role, MultipartFile file) {
+        selectRole(product, role);
+        imageService.addImage(file, product);
+        product.setCreatedTime(UserUtil.formatDateTimeNow());
+    }
+    public void selectRole(Product product, String role) {
         switch (role) {
             case "PC" -> product.setTypeOfProducts(TypeOfProduct.PC);
             case "PHONE" -> product.setTypeOfProducts(TypeOfProduct.PHONE);
             case "TABLET" -> product.setTypeOfProducts(TypeOfProduct.TABLET);
         }
-    }
-
-    public void createProduct(Product product, String role, MultipartFile file) {
-        selectProductRole(product, role);
-        imageService.addImage(file, product);
-        product.setCreatedTime(UserUtil.formatDateTimeNow());
     }
 }

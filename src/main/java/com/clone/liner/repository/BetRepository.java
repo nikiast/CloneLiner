@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BetRepository extends JpaRepository<Bet, Long> {
-    List<Bet> findByProductId(Product productId);
+    List<Bet> findByProduct(Product product);
 }

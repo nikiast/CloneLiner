@@ -32,7 +32,8 @@
 </div>
 
 <div class=" mt-4 d-flex justify-content-center align-items-center" th:object="${userFromSession}">
-    <form th:action="@{updateUserUsername}" method="post">
+    <form th:action="@{username}" method="post">
+        <input type="hidden" name="_method" value="put" />
         <div class="mb-5">
             <div class="input-group-sm p-3 mt-5 d-flex justify-content-center">
                 <span class="input-group-text">New username</span>
@@ -45,7 +46,8 @@
         </div>
     </form>
 
-    <form th:action="@{updateUserEmail}" method="post">
+    <form th:action="@{email}" method="post">
+        <input type="hidden" name="_method" value="put" />
         <div class="mb-5">
             <div class="input-group-sm p-3 mt-5 d-flex justify-content-center">
                 <span class="input-group-text">New email</span>
@@ -58,7 +60,8 @@
         </div>
     </form>
 
-    <form th:action="@{updateUserPassword}" method="post">
+    <form th:action="@{password}" method="post">
+        <input type="hidden" name="_method" value="put" />
         <div class="mb-5">
             <div class="input-group-sm p-3 mt-5 d-flex justify-content-center">
                 <span class="input-group-text">New password</span>
@@ -88,7 +91,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancel</button>
-                    <form th:action="@{deleteUser}" method="get">
+                    <form th:action="@{user}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>

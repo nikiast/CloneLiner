@@ -8,7 +8,7 @@
 <body>
 <div th:insert="fragments/header :: header"></div>
 <div class="p-5 text-center">Add Product</div>
-<form th:action="@{/product/add}" method="post" enctype="multipart/form-data">
+<form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
     <div class="d-flex flex-column">
         <div class="input-group input-group-sm mb-3 d-flex justify-content-center">
             <span class="input-group-text">Name</span>
@@ -25,7 +25,7 @@
         <div class="input-group-sm p-5 d-flex justify-content-center">
             <div class="form-check px-4">
                 <input class="form-check-input" name="role"
-                       type="radio" id="PHONE" value="PHONE">
+                       type="radio" id="PHONE" value="PHONE" checked>
                 <label class="form-check-label" for="PHONE">PHONE</label>
             </div>
             <div class="form-check px-4">

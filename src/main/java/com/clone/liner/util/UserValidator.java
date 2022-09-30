@@ -32,15 +32,17 @@ public class UserValidator implements Validator {
     }
 
     public void usernameValidate(User user, Errors errors) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            errors.rejectValue("username", "", "This username is exist");
-        }
+        userRepository
+                .findByUsername(user.getUsername())
+                .ifPresent(userFromDb ->  errors
+                        .rejectValue("username", "", "This username is exist"));
     }
 
     public void emailValidate(User user, Errors errors) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            errors.rejectValue("email", "", "This email is exist");
-        }
+        userRepository
+                .findByEmail(user.getEmail())
+                .ifPresent(userFromDb -> errors
+                        .rejectValue("email", "", "This email is exist"));
     }
 
     public void passwordValidate(User user, Errors errors) {
@@ -51,9 +53,5 @@ public class UserValidator implements Validator {
 
     private boolean passwordRegExpValidate(String password) {
         return Pattern.matches(PASSWORD_VALID, password);
-    }
-
-    private boolean emailRegExpValidate(String email) {
-        return Pattern.matches(EMAIL_VALID, email);
     }
 }

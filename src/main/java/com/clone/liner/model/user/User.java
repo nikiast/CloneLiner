@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Size(min = 1, max = 15, message = "Username should be between 1 and 15 symbol")
     private String username;
 
-    @NotEmpty(message = "Email should be not empty")
+    @NotEmpty(message = "Username should be not empty")
     @Pattern(regexp = "\\w+([\\.-]?\\w+)*@(\\w{2,5}[\\.]\\w{2,3})", message = "This email is not valid")
     private String email;
 

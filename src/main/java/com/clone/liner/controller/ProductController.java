@@ -22,20 +22,20 @@ public class ProductController {
         this.betService = betService;
     }
 
-    @GetMapping("/add")
-    public String add(@ModelAttribute("product") Product product) {
+    @GetMapping("/create")
+    public String create(@ModelAttribute("product") Product product) {
         return "product/addProduct";
     }
 
-    @PostMapping("/add")
-    public String add(@AuthenticationPrincipal User user,
-                      @ModelAttribute("product") Product product,
-                      @ModelAttribute("bet") Bet bet,
-                      @RequestParam(name = "role") String role,
-                      @RequestParam("file") MultipartFile file) {
-        productService.createProduct(product, role, file);
+    @PostMapping("/create")
+    public String create(@AuthenticationPrincipal User user,
+                         @ModelAttribute("product") Product product,
+                         @ModelAttribute("bet") Bet bet,
+                         @RequestParam(name = "role") String role,
+                         @RequestParam("file") MultipartFile file) {
+        productService.create(product, role, file);
         betService.create(bet, user, product);
-        productService.productSave(product);
+        productService.product(product);
         betService.save(bet);
         return "redirect:/";
     }
@@ -43,12 +43,12 @@ public class ProductController {
     @GetMapping("{id}")
     public String priceForm(@PathVariable("id") Product product,
                             Model model) {
-        model.addAttribute("betList", betService.findByProductId(product));
+        model.addAttribute("betList", betService.findByProduct(product));
         model.addAttribute("product", product);
         return "product/priceForm";
     }
 
-    @PostMapping("{id}/newPrice")
+    @PostMapping("{id}/price")
     public String addNewPriceForm(@AuthenticationPrincipal User userFromSession,
                                   @PathVariable("id") Product product,
                                   @RequestParam Integer price) {

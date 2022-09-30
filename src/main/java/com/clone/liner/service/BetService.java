@@ -20,7 +20,6 @@ public class BetService {
         this.betRepository = betRepository;
     }
 
-    @Transactional
     public void save(Bet bet) {
         betRepository.save(bet);
     }
@@ -32,20 +31,20 @@ public class BetService {
     }
 
     public void create(Bet bet, User user, Product product) {
-        bet.setUserId(user);
-        bet.setProductId(product);
+        bet.setUser(user);
+        bet.setProduct(product);
         bet.setCreatedTime(product.getCreatedTime());
     }
 
-    public List<Bet> findByProductId(Product product) {
-        return betRepository.findByProductId(product);
+    public List<Bet> findByProduct(Product product) {
+        return betRepository.findByProduct(product);
     }
 
     public Map<Product, Integer> getProductPriceMap() {
         Map<Product, Integer> priceProductMap = new HashMap<>();
         betRepository.findAll().forEach(bet ->
-            priceProductMap.merge(bet.getProductId(), bet.getPrice(), (oldVal, newVal) -> {
-                if (!priceProductMap.containsKey(bet.getProductId())) return newVal;
+            priceProductMap.merge(bet.getProduct(), bet.getPrice(), (oldVal, newVal) -> {
+                if (!priceProductMap.containsKey(bet.getProduct())) return newVal;
                 else return oldVal > newVal ? newVal : oldVal;
             }));
         return priceProductMap;

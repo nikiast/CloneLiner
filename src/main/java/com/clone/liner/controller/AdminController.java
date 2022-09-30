@@ -28,13 +28,13 @@ public class AdminController {
 
     @GetMapping
     public String userList(Model model) {
-        model.addAttribute("users", userService.findAllUser());
+        model.addAttribute("users", userService.findAll());
         return "user/admin/userList";
     }
 
-    @PostMapping("filter")
+    @PostMapping("username")
     public String filterByUsername(@RequestParam String username, Model model) {
-        model.addAttribute("users", userService.getUsers(username));
+        model.addAttribute("users", userService.getOneOrAll(username));
         return "user/admin/userList";
     }
 
@@ -51,7 +51,7 @@ public class AdminController {
         return "user/admin/userEdit";
     }
 
-    @PostMapping("updateUsername/{id}")
+    @PutMapping("username/{id}")
     public String updateUsername(@ModelAttribute("editingUserByAdmin") @Valid User user, BindingResult bindingResult) {
         userValidator.usernameValidate(user, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -61,7 +61,7 @@ public class AdminController {
         return REDIRECT_ADMIN_ID;
     }
 
-    @PostMapping("updatePassword/{id}")
+    @PutMapping("password/{id}")
     public String updatePassword(@ModelAttribute("editingUserByAdmin") @Valid User user, BindingResult bindingResult) {
         userValidator.passwordValidate(user, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -72,7 +72,7 @@ public class AdminController {
         return REDIRECT_ADMIN_ID;
     }
 
-    @PostMapping("updateRole/{id}")
+    @PutMapping("role/{id}")
     public String updateRole(@ModelAttribute("editingUserByAdmin") @Valid User user, @RequestParam String role) {
         userService.selectRole(user, role);
         userService.save(user);

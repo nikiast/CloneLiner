@@ -3,22 +3,21 @@ package com.clone.liner.model.product;
 import com.clone.liner.model.user.User;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Bet implements Serializable {
+public class Bet{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product productId;
+    private Product product;
 
     private Integer price;
 
@@ -27,9 +26,9 @@ public class Bet implements Serializable {
     protected Bet() {
     }
 
-    public Bet(User userId, Product productId, Integer price, String createdTime) {
-        this.userId = userId;
-        this.productId = productId;
+    public Bet(User user, Product product, Integer price, String createdTime) {
+        this.user = user;
+        this.product = product;
         this.price = price;
         this.createdTime = createdTime;
     }
@@ -42,20 +41,20 @@ public class Bet implements Serializable {
         this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Product getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getPrice() {
@@ -85,23 +84,23 @@ public class Bet implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Bet bet = (Bet) o;
         return Objects.equals(id, bet.id)
-                && Objects.equals(userId, bet.userId)
-                && Objects.equals(productId, bet.productId)
+                && Objects.equals(user, bet.user)
+                && Objects.equals(product, bet.product)
                 && Objects.equals(price, bet.price)
                 && Objects.equals(createdTime, bet.createdTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, productId, price, createdTime);
+        return Objects.hash(id, user, product, price, createdTime);
     }
 
     @Override
     public String toString() {
         return "Bet{" +
                 "id=" + id +
-                ", userId=" + userId +
-                ", productId=" + productId +
+                ", user=" + user +
+                ", product=" + product +
                 ", price=" + price +
                 ", timeCreated=" + createdTime +
                 '}';

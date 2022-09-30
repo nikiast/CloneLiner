@@ -41,7 +41,8 @@
 </div>
 <div class="p-3" th:if="${Active}" th:object="${editingUserByAdmin}">
     <div class=" mt-4 d-flex justify-content-center align-items-center">
-        <form th:action="@{updateUsername/{userId}(userId=${user.id})}" method="post">
+        <form th:action="@{username/{userId}(userId=${user.id})}" th:method="post">
+            <input type="hidden" name="_method" value="put" />
             <div class="input-group-sm p-3 d-flex justify-content-center">
                 <span class="input-group-text" id="inputGroup-sizing-sm1">New username</span>
                 <input name="username" type="text" class="form-control" style='min-width: 10%; max-width: 40%'
@@ -53,7 +54,8 @@
             </div>
         </form>
 
-        <form th:action="@{updatePassword/{userId}(userId=${user.id})}" method="post">
+        <form th:action="@{password/{userId}(userId=${user.id})}" th:method="post">
+            <input type="hidden" name="_method" value="put" />
             <div class="input-group-sm p-3 d-flex justify-content-center">
                 <span class="input-group-text" id="inputGroup-sizing-sm2">New password</span>
                 <input name="password" type="password" class="form-control" style='min-width: 10%; max-width: 40%'
@@ -67,7 +69,8 @@
     </div>
 
     <div class="mt-5 p-3 text-center">Role Edit</div>
-    <form th:action="@{updateRole/{userId}(userId=${user.id})}" method="post">
+    <form th:action="@{role/{userId}(userId=${user.id})}" method="post">
+        <input type="hidden" name="_method" value="put" />
         <div class="input-group-sm p-1 d-flex justify-content-center">
             <div class="form-check px-4">
                 <input class="form-check-input" th:checked="${user.user}" name="role"
